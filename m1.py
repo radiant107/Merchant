@@ -1,15 +1,21 @@
-# 讀取檔案
-merchant = []
-with open('merchant.csv', 'r', encoding = 'utf-8') as f:
-	for line in f:
-		if '商品,價格' in line:
-			continue            # 跳過這回不要 
-		name, price = line.strip().split(',') # 先去除分行符號再針對逗號做切割，切割完後會自動變成清單
-		merchant.append([name, price])
+import os
 
-print(merchant[0][0], '價格是', merchant[0][1])
-for m in merchant:
-	print(m[0], '的價格是', m[1], '元') 
+merchant = []
+if os.path.isfile('merchant.csv'):   # 檢查相對路徑有沒有檔案
+	print('有,找到檔案')
+	with open('merchant.csv', 'r', encoding = 'utf-8') as f:  # 讀取檔案
+		for line in f:
+			if '商品,價格' in line:
+				continue            # 跳過這回不要 
+			name, price = line.strip().split(',') # 先去除分行符號再針對逗號做切割，切割完後會自動變成清單
+			merchant.append([name, price])
+
+	print(merchant[0][0], '價格是', merchant[0][1])
+	for m in merchant:
+		print(m[0], '的價格是', m[1], '元')
+
+else:
+	print('找不到檔案....，請重新開始輸入')
 
 # 讓使用者輸入
 while True:
